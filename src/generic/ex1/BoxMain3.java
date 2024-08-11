@@ -4,6 +4,7 @@ public class BoxMain3 {
     public static void main(String[] args) {
         // 객체 생성 시점에 타입 T의 타입 결정
         // 기본형 타입은 안됨. ex) int, double, float, char
+        // 타입 인자: Integer
         GenericBox<Integer> integerBox = new GenericBox<Integer>();
         integerBox.set(10);
 //        integerBox("100"); // 컴파일 오류
