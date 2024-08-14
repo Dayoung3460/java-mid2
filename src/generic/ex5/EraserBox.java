@@ -1,4 +1,4 @@
-package generic.test.ex5;
+package generic.ex5;
 
 // Type Eraser
 // 자바의 제네릭 타입은 컴파일 시점에만 존재하고
