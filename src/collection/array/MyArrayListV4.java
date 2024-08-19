@@ -3,6 +3,10 @@ package collection.array;
 import java.util.Arrays;
 
 // E: Element
+
+// 이 클래스의 단점
+// 배열의 정확한 크기를 알지 못하면 메모리 낭비됨(사용되지 않는 배열의 뒷부분)
+// 데이터를 중간에 추가하거나 삭제할 때 비효율(O(n))
 public class MyArrayListV4<E> {
     private static final int DEFAULT_CAPACITY = 5;
 
@@ -10,6 +14,9 @@ public class MyArrayListV4<E> {
     private int size = 0;
 
     public MyArrayListV4() {
+        // new E[]는 안됨. new Object[]로 생성 후 형변환 필요
+        // 제네릭은 런타임에 이레이저에 의해 타입 정보가 사라짐
+        // 런타임에 타입 정보가 필요한 생성자에 사용 불가
         elementData = new Object[DEFAULT_CAPACITY];
     }
 
@@ -33,7 +40,6 @@ public class MyArrayListV4<E> {
         if(size == elementData.length) {
             grow();
         }
-        // 데이터를 추가할 위치부터 마지막 위치까지 데이터를 오른쪽으로 한 칸씩 이동
         shiftRightFrom(index);
         elementData[index] = e;
         size++;
