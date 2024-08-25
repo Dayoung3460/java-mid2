@@ -32,8 +32,8 @@ public class NodeMain3 {
 
     }
 
-    private static Node getNode(Node first, int index) {
-        Node x = first;
+    private static Node getNode(Node node, int index) {
+        Node x = node;
         for(int i = 0; i < index; i++) {
             x = x.next;
         }
