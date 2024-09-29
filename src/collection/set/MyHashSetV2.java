@@ -41,8 +41,16 @@ public class MyHashSetV2 {
     public boolean contains(Object searchValue) {
         int hashIndex = hashIndex(searchValue);// o(1)
         LinkedList<Object> bucket = buckets[hashIndex];// o(1)
+
+        for (Object object : bucket) {
+            if (object.equals(searchValue)) {
+                return true;
+            }
+        }
+        return false;
+
         // bucket 안에 searchValue 하나만 들어있을 확률이 높고 2개 이상의 요소가 들어갈 확률은 적음
-        return bucket.contains(searchValue);// O(1)에 가까운 O(n )
+//        return bucket.contains(searchValue);// O(1)에 가까운 O(n )
     }
 
     public boolean remove(Object value) {
