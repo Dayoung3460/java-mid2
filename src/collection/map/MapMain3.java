@@ -22,3 +22,6 @@ public class MapMain3 {
 
     }
 }
+
+// HashSet을 보면 HashMap을 갖다씀. HashMap의 value는 안쓰고(더미값 사용) 키값만 가져다 쓰는거임
+// LinkedHashSet, TreeSet도 LinkedHashMap, TreeMap에서 갖다쓰느거임.
