@@ -2,7 +2,7 @@ package collection.iterable;
 
 import java.util.Iterator;
 
-// 배열이나 리스트나 이런 데이터가 나열된 자료구조를 순회하는 방식은 다 다름
+// ArrayList나 LinkedList나 HashMap 이런 데이터가 나열된 자료구조를 순회하는 방식은 다 다름
 // 불편,,, 통일된 방법으로 순회할순 없을까?
 // Iterable, Iterator 탄생
 
@@ -23,6 +23,16 @@ public class MyArrayMain {
 
         while (iterator.hasNext()) {
             Integer value = iterator.next();
+            System.out.println("value = " + value);
+        }
+
+        System.out.println("advanced for-each");
+
+        // advanced for-each 사용하려면 array이거나 java.lang.Iterable 구현체여야함
+        // 컴파일 시점에 advanced for-each 구문을 자바가 iterator 구문으로 코드를 변경함
+        // 사실상 위와 같은 코드임
+        // for문 사용하는게 더 깰끔-
+        for (Integer value : myArray) {
             System.out.println("value = " + value);
         }
     }
