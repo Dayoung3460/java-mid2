@@ -1,4 +1,4 @@
-package collection.compare.test;
+package collection.compare.test.my;
 
 import java.util.Comparator;
 import java.util.HashMap;

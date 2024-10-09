@@ -1,73 +1,46 @@
 package collection.compare.test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class CardGameMain {
   public static void main(String[] args) {
-    // 카드는 1~ 13까지 있고
-    // 문양은 s, h, d, c
-    // 총 13 * 4 = 52장
-    // 2명이 진행
-
-    // 덱에 있는 카드 랜덤하게 섞기
-    // 각 플레이어는 5장씩 뽑음
-    // 뽑으 카드 정렬된 순서대로 출력
-    // 작은 숫자가 먼저, 같은 숫자의 경우 s, h, d, c 순으로 보여줌
-    // 카드 숫자의 합계가 큰 사람이 승리. 합계가 같으면 무승부
-
-    ArrayList<Integer> numbers = new ArrayList<>();
-    ArrayList<String> shapes = new ArrayList<>();
-    ArrayList<Card> deck = new ArrayList<>();
-
-    for (int i = 1; i <= 13; i++) {
-      numbers.add(i);
-    }
-    shapes.add("s");
-    shapes.add("h");
-    shapes.add("d");
-    shapes.add("c");
-
-    for (Integer num : numbers) {
-      for (String shape : shapes) {
-        Card card = new Card(num, shape);
-        deck.add(card);
-      }
-    }
-    Collections.shuffle(deck);
-
-    ArrayList<Card> player1Cards = new ArrayList<>();
-    ArrayList<Card> player2Cards = new ArrayList<>();
-
-    int player1NumSum = 0;
-    int player2NumSum = 0;
+    Deck deck = new Deck();
+    Player player1 = new Player("플레이어1");
+    Player player2 = new Player("플레이어2");
 
     for (int i = 0; i < 5; i++) {
-      player1Cards.add(deck.remove(i));
-      player1NumSum += deck.get(i).getNum();
+      player1.drawCard(deck);
+      player2.drawCard(deck);
     }
 
+    player1.showHand();
+    player2.showHand();
 
-    for (int i = 0; i < 5; i++) {
-      player2Cards.add(deck.remove(i));
-      player2NumSum += deck.get(i).getNum();
-    }
-    player1Cards.sort(null);
-    player2Cards.sort(null);
-    player1Cards.sort(new shapeComparator());
-    player2Cards.sort(new shapeComparator());
+    // Player winner;
+    // 이렇게 변수 선언해 놓고 로직 쭉쭉 짜다가
+    // 밑에서 winner에 값을 넣는 방식 보다
+    // 변수 선언 동시에 값을 넣어주는게 좋음
+    // 그래서 메소드로 뺀거.
+    // 메소드롤 뽑는 기준을
+    // 그 메소드를 재사용 안하면 굳이 안 뽑아도 된다고 생각했는데
+    // 이런 이점 때문에 메소드를 따로 뺄 수도 있구나!
+    Player winner = getWinner(player1, player2);
 
-    System.out.print("플레이어1의 카드: ");
-    System.out.println(player1Cards + ",  합계: " + player1NumSum);
-    System.out.print("플레이어2의 카드: ");
-    System.out.println(player2Cards + ",  합계: " + player2NumSum);
-
-    if (player1NumSum > player2NumSum) {
-      System.out.println("플레이어1 승리");
-    } else if (player1NumSum < player2NumSum) {
-      System.out.println("플레이어2 승리");
+    if (winner != null) {
+      System.out.println(winner.getName() + " 승리");
     } else {
       System.out.println("무승부");
+    }
+  }
+
+  private static Player getWinner(Player player1, Player player2) {
+    int sum1 = player1.rankSum();
+    int sum2 = player2.rankSum();
+
+    if (sum1 > sum2) {
+      return player1;
+    } else if (sum1 == sum2) {
+      return null;
+    } else {
+      return player2;
     }
   }
 }

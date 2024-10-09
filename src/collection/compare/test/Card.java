@@ -1,44 +1,38 @@
 package collection.compare.test;
 
-import java.util.HashMap;
-
 public class Card implements Comparable<Card> {
-  private Integer num;
-  private String shape;
+  private final int rank;
+  private final Suit suit;
 
-  public Card(Integer num, String shape) {
-    this.num = num;
-    this.shape = shape;
+  public Card(int rank, Suit suit) {
+    this.rank = rank;
+    this.suit = suit;
   }
 
-  public Integer getNum() {
-    return num;
+  public int getRank() {
+    return rank;
   }
 
-  public String getShape() {
-    return shape;
+  @Override
+  public int compareTo(Card anotherCard) {
+    if (this.rank != anotherCard.rank) {
+      return Integer.compare(this.rank, anotherCard.rank);
+    } else {
+      // Suit 타입은 Enum class를 상속받고 있음
+      // Enum은 자바에서 Comparable를 구현하고 있음
+      // Comparable의 메소드인 compareTo는 Suit에서 객체를 생성한 순서대로 비교를 함
+      // 즉, SPADE("♠"),
+      //  HEART("❤"),
+      //  DIAMOND("⬥"),
+      //  CLUB("♣") 순서임
+      // 이넘에서 구현하고 있는 compareTo 메소드는 final이라서 Suit에서 따로 오버라이딩해서 사용할 수 없음
+      // 재정의하고 싶으면 비교자를 직접 만들어야함
+      return this.suit.compareTo(anotherCard.suit);
+    }
   }
 
   @Override
   public String toString() {
-    String result = null;
-
-    HashMap<String, String> shapeCode = new HashMap<>();
-    shapeCode.put("s", "\u2660");
-    shapeCode.put("h", "\u2665");
-    shapeCode.put("d", "\u2666");
-    shapeCode.put("c", "\u2663");
-
-    for (String key : shapeCode.keySet()) {
-      if (key.equals(shape)) {
-        result = num + "(" + shapeCode.get(key) + ")";
-      }
-    }
-    return result;
-  }
-
-  @Override
-  public int compareTo(Card card) {
-    return this.num.compareTo(card.num);
+    return rank + "(" + suit.getIcon() + ")";
   }
 }
